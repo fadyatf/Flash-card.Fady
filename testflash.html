@@ -1,471 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Flip Card & Quiz Generator</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Google Fonts: Inter & Cairo -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .arabic { font-family: 'Cairo', sans-serif; direction: rtl; }
-        .card-container { perspective: 1000px; }
-        .card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.7s; transform-style: preserve-3d; }
-        .card-container.flipped .card-inner { transform: rotateY(180deg); }
-        .card-front, .card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; border-radius: 1rem; padding: 1rem; text-align: center; }
-        .card-back { transform: rotateY(180deg); }
-        /* Custom styles for disabled button */
-        button:disabled { cursor: not-allowed; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fady - Contact Page</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #0a0f1c, #071013);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+    }
+    header {
+        margin-top: 30px;
+    }
+    header img {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        border: 3px solid #00ff99;
+        box-shadow: 0 0 20px #00ff99;
+    }
+    h1 {
+        margin: 15px 0 5px;
+        font-size: 2rem;
+        color: #00ff99;
+    }
+    h3 {
+        margin: 0;
+        font-weight: 400;
+        color: #ccc;
+    }
+    .about {
+        max-width: 500px;
+        margin: 20px auto;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #ddd;
+    }
+    .links {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 20px;
+        width: 100%;
+        max-width: 320px;
+    }
+    .links a {
+        background: #111;
+        border: 2px solid #00ff99;
+        color: white;
+        padding: 14px;
+        text-decoration: none;
+        border-radius: 30px;
+        font-size: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        transition: 0.3s;
+        box-shadow: 0 0 10px transparent;
+    }
+    .links a:hover {
+        background: #00ff99;
+        color: #000;
+        box-shadow: 0 0 20px #00ff99;
+    }
+    footer {
+        margin-top: 30px;
+        font-size: 0.9rem;
+        color: #666;
+    }
+</style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body>
 
-    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
-        
-        <div class="text-center mb-10">
-            <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight">
-              AI 
-              <span class="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text drop-shadow-md">
-                FADY
-              </span> 
-              Flashcard & Quiz Generator
-            </h1>
-            <p class="mt-3 text-lg text-gray-600">Enter words, and Fady AI will create and save your study materials.</p>
-        </div>
+<header>
+    <img src="your-photo.jpg" alt="Fady">
+    <h1>Fady</h1>
+    <h3>Web Designer & Entrepreneur</h3>
+</header>
 
-        <!-- Input Section -->
-        <div id="inputSection" class="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-lg">
-            <div class="mb-6">
-                <label class="block text-lg font-semibold mb-3 text-gray-700">Study Mode</label>
-                <div class="flex flex-col sm:flex-row gap-4" id="language-mode-selector">
-                    <label class="flex items-center p-3 border rounded-lg cursor-pointer has-[:checked]:bg-blue-50 has-[:checked]:border-blue-500 transition-all">
-                        <input type="radio" name="languageMode" value="en-ar" class="form-radio h-5 w-5 text-blue-600 focus:ring-blue-500" checked>
-                        <span class="ml-3 text-gray-700">English to Arabic</span>
-                    </label>
-                    <label class="flex items-center p-3 border rounded-lg cursor-pointer has-[:checked]:bg-blue-50 has-[:checked]:border-blue-500 transition-all">
-                        <input type="radio" name="languageMode" value="ar-en" class="form-radio h-5 w-5 text-blue-600 focus:ring-blue-500">
-                        <span class="ml-3 text-gray-700">Arabic to English</span>
-                    </label>
-                </div>
-            </div>
+<section class="about">
+    <p>Hi, I’m <strong>Fady</strong>, a passionate web designer and entrepreneur dedicated to creating impactful digital experiences. I specialize in building user-friendly websites and innovative online systems for businesses. My mission is to help brands connect with their audience through creative design and smart solutions. With a strong background in marketing and tech, I bring ideas to life with precision. Let’s connect and make something amazing together.</p>
+</section>
 
-            <label for="word-input" class="block text-lg font-semibold mb-2 text-gray-700">Enter Words</label>
-            <textarea id="word-input" class="w-full h-40 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition" placeholder="One word per line, like:&#10;Book&#10;Science&#10;Computer&#10;Art"></textarea>
-            <button id="generateBtn" class="mt-4 w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-all duration-300 flex items-center justify-center space-x-2 disabled:bg-blue-300">
-                <svg id="generateIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m12.728 0l.707-.707M6.343 17.657l.707.707m12.728 0l-.707.707M12 21v-1"></path></svg>
-                <svg id="loadingIcon" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                <span>Generate & Save</span>
-            </button>
-            <p id="errorMessage" class="text-red-500 text-sm mt-2 text-center"></p>
-        </div>
+<div class="links">
+    <a href="https://wa.me/212XXXXXXXXX" target="_blank">📱 WhatsApp</a>
+    <a href="https://yourwebsite.com" target="_blank">🌐 My Website</a>
+    <a href="https://instagram.com/yourusername" target="_blank">📸 Instagram</a>
+    <a href="https://facebook.com/yourusername" target="_blank">📘 Facebook</a>
+    <a href="cv.pdf" target="_blank">📄 Download CV</a>
+    <a href="https://maps.google.com/?q=Your+Location" target="_blank">📍 My Location</a>
+</div>
 
-        <!-- Saved Sets Section -->
-        <div id="savedSetsSection" class="max-w-2xl mx-auto mt-8 hidden">
-            <div class="bg-white p-6 rounded-2xl shadow-lg">
-                <h3 class="text-xl font-bold mb-4 text-gray-800">Load a Saved Set</h3>
-                <div id="noSetsMessage" class="text-gray-500 hidden">You have no saved sets yet.</div>
-                <div id="setsControlGroup" class="flex flex-col sm:flex-row gap-3">
-                    <select id="savedSetsDropdown" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 transition"></select>
-                    <button id="loadSetBtn" class="bg-green-600 text-white font-bold py-3 px-5 rounded-lg hover:bg-green-700 transition-all disabled:bg-green-300">Load</button>
-                    <button id="deleteSetBtn" class="bg-red-600 text-white font-bold py-3 px-5 rounded-lg hover:bg-red-700 transition-all disabled:bg-red-300">Delete</button>
-                </div>
-            </div>
-        </div>
+<footer>
+    Made with ❤️ by Fady
+</footer>
 
-        <!-- Cards & Quiz Section -->
-        <div id="outputSection" class="hidden mt-12">
-            <div class="text-center mb-6">
-                 <button id="startOverBtn" class="bg-gray-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-gray-600 transition-all">Create New Set</button>
-            </div>
-            <div id="cardsDisplay">
-                <h2 class="text-3xl font-bold text-center mb-6">Your Flashcards</h2>
-                <div class="text-center mb-6">
-                    <button id="flipAllBtn" class="bg-purple-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-purple-700 transition-all">Show All Translations</button>
-                </div>
-                <p class="text-center text-gray-500 mb-8">Click on any card to flip it, or use the button above to flip all cards at once.</p>
-                <div id="cardsContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
-            </div>
-            <div id="quizDisplay" class="mt-16">
-                 <div class="text-center mb-8">
-                     <button id="startQuizBtn" class="bg-green-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-green-700 transition-all text-lg">Start Quiz!</button>
-                 </div>
-                <div id="quizContainer" class="hidden max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-lg"></div>
-            </div>
-        </div>
-    </div>
-
-<script type="module">
-    // --- Firebase SDK ---
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-    import { getFirestore, doc, addDoc, getDocs, deleteDoc, collection, query, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-    // --- DOM Elements ---
-    const generateBtn = document.getElementById('generateBtn');
-    const wordInput = document.getElementById('word-input');
-    const cardsContainer = document.getElementById('cardsContainer');
-    const outputSection = document.getElementById('outputSection');
-    const inputSection = document.getElementById('inputSection');
-    const startQuizBtn = document.getElementById('startQuizBtn');
-    const quizContainer = document.getElementById('quizContainer');
-    const errorMessage = document.getElementById('errorMessage');
-    const loadingIcon = document.getElementById('loadingIcon');
-    const generateIcon = document.getElementById('generateIcon');
-    const savedSetsSection = document.getElementById('savedSetsSection');
-    const savedSetsDropdown = document.getElementById('savedSetsDropdown');
-    const loadSetBtn = document.getElementById('loadSetBtn');
-    const deleteSetBtn = document.getElementById('deleteSetBtn');
-    const startOverBtn = document.getElementById('startOverBtn');
-    const noSetsMessage = document.getElementById('noSetsMessage');
-    const setsControlGroup = document.getElementById('setsControlGroup');
-    const flipAllBtn = document.getElementById('flipAllBtn');
-    const languageModeSelector = document.getElementById('language-mode-selector');
-
-    // --- App State ---
-    let vocabulary = [];
-    let savedSets = [];
-    let quizState = { questions: [], currentQuestionIndex: 0, score: 0 };
-    let areAllFlipped = false;
-    
-    // --- Firebase State ---
-    let db, auth, userId;
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-
-    // --- Firebase Initialization ---
-    async function initializeFirebase() {
-        try {
-            const firebaseConfig = JSON.parse(__firebase_config);
-            const app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            auth = getAuth(app);
-            
-            onAuthStateChanged(auth, async (user) => {
-                if (user) {
-                    userId = user.uid;
-                    console.log("User is signed in with UID:", userId);
-                    listenForSavedSets();
-                    savedSetsSection.classList.remove('hidden');
-                } else {
-                    console.log("User is signed out.");
-                    userId = null;
-                    savedSetsSection.classList.add('hidden');
-                }
-            });
-
-            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                await signInWithCustomToken(auth, __initial_auth_token);
-            } else {
-                await signInAnonymously(auth);
-            }
-        } catch (error) {
-            console.error("Firebase initialization failed:", error);
-            errorMessage.textContent = "Could not connect to the database.";
-        }
-    }
-
-    // --- Event Listeners ---
-    generateBtn.addEventListener('click', handleGeneration);
-    startQuizBtn.addEventListener('click', startQuiz);
-    loadSetBtn.addEventListener('click', loadSelectedSet);
-    deleteSetBtn.addEventListener('click', deleteSelectedSet);
-    flipAllBtn.addEventListener('click', flipAllCards);
-    languageModeSelector.addEventListener('change', handleLanguageModeChange);
-    startOverBtn.addEventListener('click', () => {
-        outputSection.classList.add('hidden');
-        inputSection.classList.remove('hidden');
-        savedSetsSection.classList.remove('hidden');
-        wordInput.value = '';
-    });
-    
-    // --- Main Generation & DB Logic ---
-    async function handleGeneration() {
-        const words = wordInput.value.trim().split('\n').filter(w => w.length > 0);
-        if (words.length === 0) {
-            showError("Please enter at least one word.");
-            return;
-        }
-        setLoading(true);
-        showError("");
-
-        try {
-            const prompt = `For this list of English words: [${words.join(', ')}], provide their Arabic translation and a simple English definition for each.`;
-            const payload = {
-              contents: [{ role: "user", parts: [{ text: prompt }] }],
-              generationConfig: { responseMimeType: "application/json", responseSchema: { type: "OBJECT", properties: { words: { type: "ARRAY", items: { type: "OBJECT", properties: { englishWord: { type: "STRING" }, arabicTranslation: { type: "STRING" }, englishDefinition: { type: "STRING" } }, required: ["englishWord", "arabicTranslation", "englishDefinition"] } } } } }
-            };
-            const apiKey = "";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-            const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-            if (!response.ok) throw new Error(`API Error: ${response.statusText}`);
-            const result = await response.json();
-            
-            if (result.candidates && result.candidates[0].content.parts[0].text) {
-                const data = JSON.parse(result.candidates[0].content.parts[0].text);
-                vocabulary = data.words;
-                await saveWordSet(vocabulary); // Save to Firestore
-                displayUIForSet();
-            } else {
-                throw new Error("Could not parse the response from the AI.");
-            }
-        } catch (error) {
-            console.error("Error during generation:", error);
-            showError("Failed to generate cards. Please try again.");
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    async function saveWordSet(wordArray) {
-        if (!userId || !db) return;
-        try {
-            const collectionRef = collection(db, `artifacts/${appId}/users/${userId}/wordSets`);
-            await addDoc(collectionRef, {
-                words: JSON.stringify(wordArray), // Serialize array to string
-                createdAt: new Date()
-            });
-            console.log("Word set saved successfully!");
-        } catch (error) {
-            console.error("Error saving word set:", error);
-            showError("Could not save your word set.");
-        }
-    }
-
-    function listenForSavedSets() {
-        if (!userId || !db) return;
-        const collectionRef = collection(db, `artifacts/${appId}/users/${userId}/wordSets`);
-        const q = query(collectionRef); 
-        
-        onSnapshot(q, (querySnapshot) => {
-            savedSets = [];
-            querySnapshot.forEach((doc) => {
-                savedSets.push({ id: doc.id, ...doc.data() });
-            });
-            savedSets.sort((a, b) => b.createdAt.toDate() - a.createdAt.toDate());
-            updateSavedSetsDropdown();
-        }, (error) => {
-            console.error("Error listening for saved sets:", error);
-            showError("Could not fetch your saved sets.");
-        });
-    }
-    
-    function updateSavedSetsDropdown() {
-        savedSetsDropdown.innerHTML = '';
-        if (savedSets.length === 0) {
-            noSetsMessage.classList.remove('hidden');
-            setsControlGroup.classList.add('hidden');
-        } else {
-            noSetsMessage.classList.add('hidden');
-            setsControlGroup.classList.remove('hidden');
-            savedSets.forEach(set => {
-                const option = document.createElement('option');
-                option.value = set.id;
-                const date = set.createdAt.toDate().toLocaleString();
-                try {
-                    const words = JSON.parse(set.words);
-                    option.textContent = `${date} - (${words.slice(0, 3).map(w => w.englishWord).join(', ')}...)`;
-                } catch {
-                    option.textContent = `${date} - (Invalid set data)`;
-                }
-                savedSetsDropdown.appendChild(option);
-            });
-        }
-        loadSetBtn.disabled = savedSets.length === 0;
-        deleteSetBtn.disabled = savedSets.length === 0;
-    }
-
-    function loadSelectedSet() {
-        const setId = savedSetsDropdown.value;
-        if (!setId) return;
-        const selectedSet = savedSets.find(s => s.id === setId);
-        if (selectedSet) {
-            try {
-                vocabulary = JSON.parse(selectedSet.words);
-                displayUIForSet();
-            } catch (error) {
-                console.error("Error parsing saved set:", error);
-                showError("The selected set is corrupted and cannot be loaded.");
-            }
-        }
-    }
-
-    async function deleteSelectedSet() {
-        const setId = savedSetsDropdown.value;
-        if (!setId) return;
-        // Using a custom modal for confirmation would be better, but confirm is simpler for this example.
-        if (window.confirm("Are you sure you want to delete this set? This cannot be undone.")) {
-            try {
-                const docRef = doc(db, `artifacts/${appId}/users/${userId}/wordSets`, setId);
-                await deleteDoc(docRef);
-                console.log("Set deleted successfully.");
-            } catch (error) {
-                console.error("Error deleting set:", error);
-                showError("Failed to delete the set.");
-            }
-        }
-    }
-
-    // --- UI Update Functions ---
-    function displayUIForSet() {
-        areAllFlipped = false; // Reset flip state
-        displayCards();
-        updateFlipAllButtonText(); // Set initial button text
-        outputSection.classList.remove('hidden');
-        inputSection.classList.add('hidden');
-        savedSetsSection.classList.add('hidden');
-        quizContainer.innerHTML = '';
-        quizContainer.classList.add('hidden');
-        startQuizBtn.classList.remove('hidden');
-    }
-
-    function setLoading(isLoading) {
-        generateBtn.disabled = isLoading;
-        loadingIcon.classList.toggle('hidden', !isLoading);
-        generateIcon.classList.toggle('hidden', isLoading);
-    }
-    
-    function showError(message) {
-        errorMessage.textContent = message;
-    }
-
-    function displayCards() {
-        const languageMode = document.querySelector('input[name="languageMode"]:checked').value;
-        cardsContainer.innerHTML = '';
-        vocabulary.forEach(item => {
-            const isEnglishFirst = languageMode === 'en-ar';
-            const frontText = isEnglishFirst ? item.englishWord : item.arabicTranslation;
-            const frontClass = isEnglishFirst ? '' : 'arabic text-3xl';
-            const backTitle = isEnglishFirst ? item.arabicTranslation : item.englishWord;
-            const backTitleClass = isEnglishFirst ? 'text-3xl font-bold arabic' : 'text-2xl font-bold';
-            const backContentHTML = `<h4 class="${backTitleClass}">${backTitle}</h4><p class="mt-2 text-blue-100">${item.englishDefinition}</p>`;
-            const cardElement = document.createElement('div');
-            cardElement.className = 'card-container h-52 cursor-pointer group';
-            // Apply 'flipped' class based on the global state
-            if (areAllFlipped) {
-                cardElement.classList.add('flipped');
-            }
-            cardElement.innerHTML = `<div class="card-inner"><div class="card-front bg-white shadow-lg flex-col p-4 border border-gray-200"><h3 class="text-2xl font-bold ${frontClass}">${frontText}</h3><span class="text-gray-400 mt-4 text-sm group-hover:opacity-100 opacity-0 transition-opacity">Click to flip</span></div><div class="card-back bg-blue-600 text-white shadow-lg flex-col p-4">${backContentHTML}</div></div>`;
-            cardElement.addEventListener('click', () => cardElement.classList.toggle('flipped'));
-            cardsContainer.appendChild(cardElement);
-        });
-    }
-
-    // --- Card Flip Logic ---
-    function flipAllCards() {
-        areAllFlipped = !areAllFlipped; // Toggle the state
-        const cards = document.querySelectorAll('.card-container');
-        cards.forEach(card => {
-            card.classList.toggle('flipped', areAllFlipped);
-        });
-        updateFlipAllButtonText();
-    }
-
-    function updateFlipAllButtonText() {
-        const languageMode = document.querySelector('input[name="languageMode"]:checked').value;
-        const isEnglishFirst = languageMode === 'en-ar';
-        if (areAllFlipped) {
-            flipAllBtn.textContent = isEnglishFirst ? 'Show All English' : 'Show All Arabic';
-        } else {
-            flipAllBtn.textContent = isEnglishFirst ? 'Show All Arabic' : 'Show All English';
-        }
-    }
-    
-    function handleLanguageModeChange() {
-        if (!outputSection.classList.contains('hidden')) {
-            areAllFlipped = false;
-            displayCards();
-            updateFlipAllButtonText();
-        }
-    }
-
-    // --- Quiz Logic ---
-    function startQuiz() {
-        startQuizBtn.classList.add('hidden');
-        quizContainer.classList.remove('hidden');
-        quizState.questions = shuffleArray([...vocabulary]);
-        quizState.currentQuestionIndex = 0;
-        quizState.score = 0;
-        displayQuestion();
-    }
-
-    function displayQuestion() {
-        if (quizState.currentQuestionIndex >= quizState.questions.length) {
-            displayQuizResults();
-            return;
-        }
-        const languageMode = document.querySelector('input[name="languageMode"]:checked').value;
-        const isEnglishFirst = languageMode === 'en-ar';
-        const question = quizState.questions[quizState.currentQuestionIndex];
-        const options = generateQuizOptions(question, languageMode);
-        const questionWord = isEnglishFirst ? question.englishWord : question.arabicTranslation;
-        const questionPrompt = isEnglishFirst ? 'What is the Arabic translation of:' : 'What is the English word for:';
-        const questionWordClass = isEnglishFirst ? '' : 'arabic';
-        quizContainer.innerHTML = `<div class="text-center"><p class="text-sm text-gray-500">Question ${quizState.currentQuestionIndex + 1} of ${quizState.questions.length}</p><p class="text-lg my-4">${questionPrompt}</p><h3 class="text-4xl font-bold mb-8 ${questionWordClass}">${questionWord}</h3><div class="grid grid-cols-1 sm:grid-cols-2 gap-4">${options.map(opt => `<button class="quiz-option ${opt.isArabic ? 'arabic' : ''} text-xl font-bold p-4 border rounded-lg transition-colors hover:bg-gray-100" data-correct="${opt.correct}">${opt.text}</button>`).join('')}</div><div id="feedback" class="mt-6 h-10"></div></div>`;
-        document.querySelectorAll('.quiz-option').forEach(btn => btn.addEventListener('click', handleAnswer));
-    }
-
-    function handleAnswer(event) {
-        const selectedButton = event.target;
-        const isCorrect = selectedButton.dataset.correct === 'true';
-        document.querySelectorAll('.quiz-option').forEach(btn => {
-            btn.disabled = true;
-            if (btn.dataset.correct === 'true') btn.classList.add('!bg-green-500', 'text-white', 'border-green-500');
-        });
-        const feedbackEl = document.getElementById('feedback');
-        if (isCorrect) {
-            quizState.score++;
-            selectedButton.classList.add('!bg-green-500', 'text-white', 'border-green-500');
-            feedbackEl.innerHTML = `<p class="text-green-600 font-semibold text-lg">Correct!</p>`;
-        } else {
-            selectedButton.classList.add('!bg-red-500', 'text-white', 'border-red-500');
-            feedbackEl.innerHTML = `<p class="text-red-600 font-semibold text-lg">Not quite!</p>`;
-        }
-        quizState.currentQuestionIndex++;
-        setTimeout(displayQuestion, 2000);
-    }
-    
-    function displayQuizResults() {
-        quizContainer.innerHTML = `<div class="text-center"><h2 class="text-3xl font-bold mb-4">Quiz Complete!</h2><p class="text-xl text-gray-700">Your score is:</p><p class="text-6xl font-bold my-4 text-blue-600">${quizState.score} / ${quizState.questions.length}</p><button id="restartQuizBtn" class="mt-6 bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-all">Try Again</button></div>`;
-        document.getElementById('restartQuizBtn').addEventListener('click', () => {
-             quizContainer.classList.add('hidden');
-             startQuizBtn.classList.remove('hidden');
-        });
-    }
-
-    function generateQuizOptions(correctAnswer, languageMode) {
-        const isEnglishFirst = languageMode === 'en-ar';
-        const answerKey = isEnglishFirst ? 'arabicTranslation' : 'englishWord';
-        const questionKey = isEnglishFirst ? 'englishWord' : 'arabicTranslation';
-        const isAnswerArabic = isEnglishFirst;
-        let options = [{ text: correctAnswer[answerKey], correct: true, isArabic: isAnswerArabic }];
-        let distractors = shuffleArray(vocabulary.filter(item => item[questionKey] !== correctAnswer[questionKey]));
-        const numDistractors = Math.min(3, distractors.length);
-        for (let i = 0; i < numDistractors; i++) {
-            options.push({ text: distractors[i][answerKey], correct: false, isArabic: isAnswerArabic });
-        }
-        return shuffleArray(options);
-    }
-    
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
-
-    // --- Initial Load ---
-    initializeFirebase();
-
-</script>
 </body>
 </html>
